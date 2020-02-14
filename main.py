@@ -13,7 +13,10 @@ def main():
     print(json_data)
     icon_uri = './images/' + res['weather'][0]['main'] + ".png"
 
-    subprocess.run(['/usr/local/bin/led-image-viewer', icon_uri, '--led-slowdown-gpio=2'])
+    subprocess.run(['convert', 'label:'+"Temp:"+res['main']['temp'], './caption.png'])
+    subprocess.run(['convert', '-append', icon_uri, './caption.png', './weather.png'])
+
+    subprocess.run(['/usr/local/bin/led-image-viewer', 'weather.png', '--led-slowdown-gpio=2'])
 
 
 if __name__ == '__main__':
