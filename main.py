@@ -13,7 +13,8 @@ def main():
     print(json_data)
     icon_uri = './images/' + res['weather'][0]['main'] + ".png"
 
-    subprocess.run(['convert', 'label:'+"Temp:"+res['main']['temp'], './caption.png'])
+    subprocess.run(['convert', '-size', '375x100', '-fill', 'white', '-background', 'none', \
+                    'label:' + "Temp:" + str(res['main']['temp']), '-pointsize', '80', './caption.png'])
     subprocess.run(['convert', '-append', icon_uri, './caption.png', './weather.png'])
 
     subprocess.run(['/usr/local/bin/led-image-viewer', 'weather.png', '--led-slowdown-gpio=2'])
